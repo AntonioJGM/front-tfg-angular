@@ -7,4 +7,5 @@ export interface LibroModel {
   isbn: string;
   disponible: boolean;
   imagen: string;
+  descripcion:string;
 }
