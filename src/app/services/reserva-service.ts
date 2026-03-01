@@ -21,7 +21,10 @@ export class ReservaService {
   }
 
   create(reserva: any): Observable<ReservaModel> {
-    return this.http.post<ReservaModel>(`${this.apiUrl}/create`, reserva);
+    const token = localStorage.getItem("token");
+    return this.http.post<ReservaModel>(`${this.apiUrl}/create`, reserva,
+      { headers: { Authorization: `Bearer ${token}` }}
+    );
   }
 
   cancelar(id: number): Observable<void> {

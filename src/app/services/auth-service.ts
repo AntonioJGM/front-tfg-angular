@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
+import {jwtDecode} from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -42,4 +43,24 @@ export class AuthService {
   isLogged(): boolean {
     return !!this.getToken();
   }
+
+  //decodificar token 
+  getDecodedToken(): any | null { 
+
+    const token = this.getToken(); 
+    if (!token) return null; 
+    
+    try { 
+      return jwtDecode(token); 
+    } catch (e) { 
+      console.error("Error decodificando token", e); 
+      return null; } 
+  }
+
+  //obtener idUsuario del token 
+  getUsuarioId(): number | null { 
+    const decoded = this.getDecodedToken(); 
+    return decoded?.idUsuario ?? null;
+  }
+
 }

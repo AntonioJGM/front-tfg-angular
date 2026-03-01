@@ -29,4 +29,14 @@ export class LibroService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
+
+  prestarLibro(id: number) { 
+    return this.http.post<{ message: string }>( 
+      `http://localhost:9012/prestamos/${id}`, {} ); 
+    } 
+  
+  reservarLibro(id: number) { 
+    return this.http.post<{ message: string }>( 
+      `http://localhost:9012/reservas/${id}`, {} ); 
+  }
 }

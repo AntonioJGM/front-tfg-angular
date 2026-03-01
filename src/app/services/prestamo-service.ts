@@ -21,7 +21,10 @@ export class PrestamoService {
   }
 
   create(prestamo: any): Observable<PrestamoModel> {
-    return this.http.post<PrestamoModel>(`${this.apiUrl}/create`, prestamo);
+    const token = localStorage.getItem("token");
+    return this.http.post<PrestamoModel>(`${this.apiUrl}/create`, prestamo,
+      { headers: { Authorization: `Bearer ${token}` }}
+    );
   }
 
   devolver(id: number): Observable<PrestamoModel> {
