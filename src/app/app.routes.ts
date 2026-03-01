@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home-component/home-component';
 import { BookDetailComponent } from './pages/book-detail-component/book-detail-component';
+import { RegistroComponent } from './components/registro-component/registro-component';
 import { provideHttpClient } from '@angular/common/http';
 import { LoginComponent } from './components/login-component/login-component';
 import { authGuard } from './guards/auth-guard';
@@ -17,6 +18,8 @@ export const routes: Routes = [
    { path: 'book/:id', component: BookDetailComponent, canActivate: [authGuard] },
 
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistroComponent }
+
 
   /*{
     path: 'admin',
