@@ -6,4 +6,5 @@ export interface LibroModel {
   categoria: string;
   isbn: string;
   disponible: boolean;
+  imagen: string;
 }
