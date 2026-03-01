@@ -1,33 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { LibroService } from '../../services/libro-service';
 import { LibroModel } from '../../models/libro-model';
-import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { AsideComponent } from '../../components/aside-component/aside-component';
 import { BookListComponent } from '../../components/book-list-component/book-list-component';
 
+
 @Component({
-  selector: 'app-home-component',
-  templateUrl: './home-component.html',
-  styleUrls: ['./home-component.css'], 
-  imports: [CommonModule, RouterModule, BookListComponent],
-  standalone: true
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, AsideComponent, BookListComponent],
+  templateUrl: './home-component.html'
 })
 export class HomeComponent implements OnInit {
 
-  libros$!: Observable<LibroModel[]>;
-  categorias: string[] = ['Autores', 'Categorías'];
-  searchTerm: string = '';
-
-  indicesLibros: number[] = [];
-  indicesCategorias: number[] = [];
+  libros: LibroModel[] = [];
+  filteredLibros: LibroModel[] = [];
 
   constructor(private libroService: LibroService) {}
 
   ngOnInit(): void {
-    // Cargar libros
+    this.libroService.getAll().subscribe(data => {
+      this.libros = data;
+      this.filteredLibros = data;
+    });
+  }
 
-    this.libros$ = this.libroService.getAll();
+  applyFilter(event: {type: string, value: string | null}) {
+
+    if (event.type === 'all') {
+      this.filteredLibros = this.libros;
+    }
+
+    if (event.type === 'categoria') {
+      this.filteredLibros = this.libros
+        .filter(l => l.categoria === event.value);
+    }
+
+    if (event.type === 'autor') {
+      this.filteredLibros = this.libros
+        .filter(l => l.autor === event.value);
+    }
   }
 }

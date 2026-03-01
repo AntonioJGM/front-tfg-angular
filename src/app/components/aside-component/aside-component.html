@@ -1,0 +1,29 @@
+<ul class="list-group">
+
+    <li class="list-group-item"
+        [ngClass]="selectedType === 'all' ? 'active' : ''"
+        (click)="selectAll()"
+        style="cursor:pointer">
+        <strong>Todos los libros</strong>
+    </li>
+
+  <!-- CATEGORÍAS -->
+  <li class="list-group-item"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapseCategorias"
+      style="cursor:pointer">
+    <strong>Categorías</strong>
+  </li>
+
+  <div id="collapseCategorias" class="collapse show">
+    @for (cat of categorias; track cat) {
+      <li class="list-group-item list-group-item-action"
+          style="cursor:pointer"
+          [ngClass]="selectedType === 'categoria' && selectedValue === cat ? 'active' : ''"
+          (click)="selectCategoria(cat)">
+        {{ cat }}
+      </li>
+    }
+  </div>
+
+</ul>

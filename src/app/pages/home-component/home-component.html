@@ -1,21 +1,18 @@
-<div class="container-fluid">
-  <div class="row mt-4">
-    <!-- Sidebar -->
+<div class="container-fluid mt-4">
+  <div class="row">
+
     <div class="col-md-2">
-      <ul class="list-group">
-        <li class="list-group-item active">Todos los libros</li>
-        <li class="list-group-item" *ngFor="let categoria of categorias">{{ categoria }}</li>
-        <li class="list-group-item mt-3">Iniciar sesión</li>
-        <li class="list-group-item">Ayuda</li>
-      </ul>
+      <app-aside
+        [libros]="libros"
+        (filterChange)="applyFilter($event)">
+      </app-aside>
     </div>
 
-    <!-- Contenido principal: libros -->
-    <div class="col-md-10">
-      <h4 class="mb-3">LIBROS</h4>
-      <div class="row g-4">
-        <app-book-list></app-book-list>
-      </div>
+    <div class="col-md-6">
+      <app-book-list
+        [libros]="filteredLibros">
+      </app-book-list>
     </div>
+
   </div>
 </div>

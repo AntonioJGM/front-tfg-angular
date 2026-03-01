@@ -1,27 +1,15 @@
-import { Component, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { LibroService } from '../../services/libro-service';
-import { LibroModel } from '../../models/libro-model';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LibroModel } from '../../models/libro-model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [RouterModule, CommonModule],
-  templateUrl: './book-list-component.html',
-  styleUrls: ['./book-list-component.css']
+  imports: [CommonModule, RouterLink],
+  templateUrl: './book-list-component.html'
 })
 export class BookListComponent {
 
-  libros = signal<LibroModel[]>([]);
-
-  constructor(private libroService: LibroService) {}
-
-  ngOnInit() {
-    this.libroService.getAll().subscribe({
-      next: (data) => this.libros.set(data),
-      error: (err) => console.error('Error al cargar libros:', err)
-    });
-  };
-
-};
+  @Input() libros: LibroModel[] = [];
+}

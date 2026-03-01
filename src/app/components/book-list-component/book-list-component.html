@@ -1,19 +1,44 @@
-<div class="container mt-4">
-  <h3 class="mb-4">Todos los libros</h3>
-  <div class="row g-4">
-    @for(libro of libros(); track libro.idLibro) {
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="card h-100 shadow-sm hover-shadow">
-            <!-- <img [src]="libro.portadaUrl" class="card-img-top" alt="{{ libro.titulo }}"> -->
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ libro.titulo }}</h5>
-                    <p class="card-text text-truncate">{{ libro.autor }}</p>
-                    <a [routerLink]="['/book', libro.idLibro]" class="btn btn-primary mt-auto w-100">
-                    Ver detalle
-                    </a>
-                </div>
-            </div>
+<div class="row">
+  @for (libro of libros; track libro.idLibro) {
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm">
+
+        <!-- Imagen -->
+        <img 
+          [src]="libro.imagen"
+          class="card-img-top"
+          style="height: 300px; object-fit: cover;"
+          alt="Portada del libro">
+
+        <div class="card-body d-flex flex-column">
+
+          <h5 class="card-title">{{ libro.titulo }}</h5>
+
+          <p class="card-text mb-1">
+            <strong>Autor:</strong> {{ libro.autor }}
+          </p>
+
+          <p class="card-text mb-2">
+            <strong>Categoría:</strong> {{ libro.categoria }}
+          </p>
+
+          <span class="badge mb-3"
+                [ngClass]="libro.disponible ? 'bg-success' : 'bg-danger'">
+            {{ libro.disponible ? 'Disponible' : 'No disponible' }}
+          </span>
+
+          <!-- Botón abajo siempre -->
+          <div class="mt-auto">
+            <a 
+              [routerLink]="['/book', libro.idLibro]"
+              class="btn btn-primary w-100">
+              Ver detalle
+            </a>
+          </div>
+
         </div>
-    }
-  </div>
+
+      </div>
+    </div>
+  }
 </div>
