@@ -14,6 +14,7 @@ export const appConfig = {
 export const routes: Routes = [
 
   { path: '', component: HomeComponent, canActivate: [authGuard] },
+   { path: 'book/:id', component: BookDetailComponent, canActivate: [authGuard] },
 
   { path: 'login', component: LoginComponent },
 

@@ -1,27 +1,37 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { LibroModel } from '../../models/libro-model';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { LibroService } from '../../services/libro-service';
+import { LibroModel } from '../../models/libro-model';
 
 @Component({
-  selector: 'app-book-detai-component',
+  selector: 'app-book-detail',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './book-detail-component.html',
-  imports: [CommonModule]
+  styleUrls: ['./book-detail-component.css']
 })
 export class BookDetailComponent implements OnInit {
 
   libro?: LibroModel;
+  loading = true;
 
   constructor(
     private route: ActivatedRoute,
     private libroService: LibroService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.libroService.getById(id)
-      .subscribe(data => this.libro = data);
+
+    this.libroService.getById(id).subscribe({
+      next: (data) => {
+        this.libro = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
   }
 }

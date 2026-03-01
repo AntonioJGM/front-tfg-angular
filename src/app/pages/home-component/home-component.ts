@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { BookCardComponent } from '../../components/book-card-component/book-card-component';
 import { LibroService } from '../../services/libro-service';
 import { LibroModel } from '../../models/libro-model';
 import { AsyncPipe } from '@angular/common';
