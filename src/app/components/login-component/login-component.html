@@ -1,0 +1,38 @@
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+    <div class="text-center mb-4">
+      <img src="assets/logo.jpeg" alt="Logo" class="img-fluid" style="max-width: 100px;">
+      <h3 class="mt-2">Iniciar Sesión</h3>
+    </div>
+    <form (ngSubmit)="login()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          class="form-control" 
+          [(ngModel)]="email" 
+          name="email" 
+          placeholder="Ingresa tu email" 
+          required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input 
+          type="password" 
+          id="password" 
+          class="form-control" 
+          [(ngModel)]="password" 
+          name="password" 
+          placeholder="Ingresa tu contraseña" 
+          required>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+      </div>
+    </form>
+    <div class="text-center mt-3">
+      <small>¿No tienes cuenta? <a href="/register">Regístrate</a></small>
+    </div>
+  </div>
+</div>
