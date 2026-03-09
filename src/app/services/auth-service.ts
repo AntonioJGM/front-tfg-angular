@@ -30,8 +30,6 @@ export class AuthService {
     return this.http.post<{ message: string }>(`${this.apiUrl}/register`, data);
   }
 
-
-
   getToken(): string | null {
     return localStorage.getItem('token');
   }
