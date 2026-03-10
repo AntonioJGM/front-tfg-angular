@@ -5,6 +5,11 @@ import { routes } from './app/app.routes';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
-bootstrapApplication(App, {providers: [provideHttpClient(),provideRouter(routes)]
+/*
+bootstrapApplication(App, {providers: [provideRouter(routes)]
 })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error(err));*/
+
+
+bootstrapApplication(App, appConfig)
+  .catch(err => console.error(err));
