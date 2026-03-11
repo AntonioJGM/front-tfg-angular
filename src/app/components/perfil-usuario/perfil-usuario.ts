@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { PrestamoModel } from '../../models/prestamo-model';
 import { PrestamoResponseDto } from '../../models/prestamo-responsedto';
+import { ReservaResponseDto } from '../../models/reserva-responsedto';
 import { PrestamoService } from '../../services/prestamo-service';
+import { ReservaService } from '../../services/reserva-service';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -13,18 +14,21 @@ export class PerfilUsuarioComponent {
 
   prestamos: PrestamoResponseDto[] = [];
   loading = true;
+  reservas: ReservaResponseDto[] = []; 
+  loadingReservas = false;
   mensaje?: string;
 
-  constructor(private prestamosService: PrestamoService) {}
+  constructor(private prestamoService: PrestamoService, private reservaService:ReservaService ) {}
 
   ngOnInit() {
     this.cargarPrestamos();
+    this.cargarReservas();
   }
 
   cargarPrestamos() {
     this.loading = true;
 
-    this.prestamosService.getMisPrestamos().subscribe({
+    this.prestamoService.getMisPrestamos().subscribe({
       next: (data) => {
         this.prestamos = data;
         this.loading = false;
@@ -37,7 +41,7 @@ export class PerfilUsuarioComponent {
   }
 
   devolver(id: number) {
-    this.prestamosService.devolver(id).subscribe({
+    this.prestamoService.devolver(id).subscribe({
       next: (dto: PrestamoResponseDto) => {
         this.mensaje = `Libro devuelto: ${dto.tituloLibro}`;
         this.cargarPrestamos();
@@ -48,4 +52,25 @@ export class PerfilUsuarioComponent {
     });
   }
 
+  cargarReservas() {
+    this.loadingReservas = true;
+
+    this.reservaService.getMisReservas().subscribe({
+      next: (data) => {
+        this.reservas = data;
+        this.loadingReservas = false;
+      },
+      error: () => {
+        this.loadingReservas = false;
+      }
+    });
+  }
+
+  cancelarReserva(id: number) {
+    this.reservaService.cancelarReserva(id).subscribe({
+      next: () => {
+        this.cargarReservas();
+      }
+    });
+  }
 }

@@ -34,4 +34,12 @@ export class ReservaService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
+
+  getMisReservas() {
+  return this.http.get<any[]>(`${this.apiUrl}/mis-reservas`);
+}
+
+  cancelarReserva(idReserva: number) {
+    return this.http.delete(`${this.apiUrl}/cancelar/${idReserva}`);
+  }
 }
