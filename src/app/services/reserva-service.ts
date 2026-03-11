@@ -39,7 +39,7 @@ export class ReservaService {
   return this.http.get<any[]>(`${this.apiUrl}/mis-reservas`);
 }
 
-  cancelarReserva(idReserva: number) {
-    return this.http.delete(`${this.apiUrl}/cancelar/${idReserva}`);
+  cancelarReserva(id: number) {
+    return this.http.delete(`${this.apiUrl}/delete/${id}`);
   }
 }

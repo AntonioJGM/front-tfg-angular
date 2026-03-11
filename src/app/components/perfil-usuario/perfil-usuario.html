@@ -14,7 +14,7 @@
   } @else {
 
     @if (prestamos.length === 0) {
-      <div class="alert alert-warning">
+      <div class="alert alert-primary">
         No tienes préstamos actualmente.
       </div>
     } @else {
@@ -73,13 +73,13 @@
 } @else {
 
   @if (reservas.length === 0) {
-    <div class="alert alert-warning">
+    <div class="alert alert-primary">
       No tienes reservas actualmente.
     </div>
   } @else {
 
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
+    <table class="table table-light">
+      <thead class="table-primary">
         <tr>
           <th>Libro</th>
           <th>Fecha reserva</th>
