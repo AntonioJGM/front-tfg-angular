@@ -1,0 +1,36 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install and build frontend
+      run: |
+        npm install
+        npm run build -- --prod
+
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: 217.154.181.154
+        username: root
+        key: ${{ secrets.VPS_SSH_KEY }}
+        script: |
+          echo "Deploying frontend..."
+          rm -rf /var/www/html/*
+          cp -r $GITHUB_WORKSPACE/dist/* /var/www/html/
+          echo "Frontend deployed!"
