@@ -18,10 +18,10 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Install and build frontend
+    - name: Build Angular frontend
       run: |
         npm install
-        npm run build -- --prod
+        npx ng build --configuration production
 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v0.1.7
