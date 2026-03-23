@@ -6,7 +6,7 @@ import {jwtDecode} from 'jwt-decode';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:9012/auth';
+  private apiUrl = 'http://antdaw25.com:9012/auth';
 
   constructor(private http: HttpClient) {}
 
