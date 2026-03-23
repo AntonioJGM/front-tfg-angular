@@ -1,0 +1,146 @@
+<div class="container py-4">
+
+  <h2 class="mb-4">Gestión de Reservas</h2>
+
+  <!-- LISTADO DE RESERVAS -->
+  <h4 class="mb-3">Listado de reservas</h4>
+
+  @if (reservas.length === 0) {
+    <div class="alert alert-warning">No hay reservas registradas.</div>
+  } @else {
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Libro</th>
+          <th>Fecha</th>
+          <th>Activa</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (reserva of reservas; track reserva.idReserva) {
+          <tr>
+            <td>{{ reserva.idReserva }}</td>
+            <td>{{ reserva.nombreUsuario }}</td>
+            <td>{{ reserva.tituloLibro }}</td>
+            <td>{{ reserva.fechaReserva }}</td>
+
+            <td>
+              @if (reserva.activa) {
+                <span class="badge bg-success">Activa</span>
+              } @else {
+                <span class="badge bg-secondary">Inactiva</span>
+              }
+            </td>
+
+            <td class="text-end">
+
+              <button class="btn btn-warning btn-sm me-2"
+                      (click)="cargarReservaParaEditar(reserva)">
+                Editar
+              </button>
+
+              <button class="btn btn-danger btn-sm"
+                      (click)="cancelarReserva(reserva.idReserva)">
+                Cancelar
+              </button>
+
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <hr class="my-4">
+
+  <!-- FORMULARIO -->
+  <h3 class="mb-4">
+    @if (modoEdicion) {
+      Editar Reserva
+    } @else {
+      Crear Reserva
+    }
+  </h3>
+
+  @if (mensaje) {
+    <div class="alert alert-info">{{ mensaje }}</div>
+  }
+
+  <form [formGroup]="reservaForm"
+        (ngSubmit)="guardarReserva()"
+        class="border p-4 rounded shadow-sm bg-light">
+
+    @if (modoEdicion) {
+      <div class="mb-3">
+        <label class="form-label">ID Reserva</label>
+        <input class="form-control"
+               formControlName="idReserva"
+               [disabled]="true">
+      </div>
+    }
+
+    <div class="mb-3">
+      <label class="form-label">Usuario</label>
+      <select class="form-select" formControlName="idUsuario">
+        <option value="">Seleccione un usuario</option>
+        @for (u of usuarios; track u.idUsuario) {
+          <option [ngValue]="u.idUsuario">
+            {{ u.nombre }} {{ u.apellidos }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Libro</label>
+      <select class="form-select" formControlName="idLibro">
+        <option value="">Seleccione un libro</option>
+        @for (l of libros; track l.idLibro) {
+          <option [ngValue]="l.idLibro">
+            {{ l.titulo }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Fecha de reserva</label>
+      <input type="date" class="form-control" formControlName="fechaReserva">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Activa</label>
+      <select class="form-select" formControlName="activa">
+        <option [ngValue]="true">Activa</option>
+        <option [ngValue]="false">Inactiva</option>
+      </select>
+    </div>
+
+    <div class="d-flex gap-2">
+
+      <button class="btn btn-primary flex-fill" type="submit">
+        @if (modoEdicion) {
+          Guardar Cambios
+        } @else {
+          Crear Reserva
+        }
+      </button>
+
+      @if (modoEdicion) {
+        <button type="button"
+                class="btn btn-danger flex-fill"
+                (click)="cancelarReserva(reservaForm.value.idReserva)">
+          Cancelar Reserva
+        </button>
+      }
+
+    </div>
+
+  </form>
+
+</div>
+

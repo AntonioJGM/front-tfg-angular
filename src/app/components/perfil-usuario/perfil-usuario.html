@@ -1,5 +1,15 @@
 <div class="container mt-4">
 
+  @if (rol === 'ADMIN') {
+  <div class="alert alert-dark d-flex justify-content-between align-items-center">
+    <span>Para acceder al panel de administración haz clic aquí:</span>
+    <a routerLink="/admin" class="btn btn-sm btn-light">
+      Ir al panel
+    </a>
+  </div>
+}
+
+
   <h2 class="mb-3">Mis préstamos</h2>
 
   @if (mensaje) {

@@ -34,8 +34,20 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  getRole(): string | null {
+  /*getRole(): string | null {
     return localStorage.getItem('rol');
+  }*/
+
+  getRole(): string | null {
+    const rolCrudo = localStorage.getItem('rol');
+
+    if (!rolCrudo) return null;
+
+    if (rolCrudo.includes('nombre=')) {
+      return rolCrudo.split('nombre=')[1].replace(')', '').trim();
+    }
+
+    return rolCrudo;
   }
 
   isLogged(): boolean {

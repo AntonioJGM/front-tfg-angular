@@ -1,8 +1,8 @@
 export interface UsuarioModel {
-  id: number;
+  idUsuario: number;
   nombre: string;
-  apellido: string;
+  apellidos: string;
   email: string;
-  rol: 'ADMIN' | 'USUARIO';
+  rol: 'ADMIN' | 'USUARIO' | 'BIBLIOTECARIO';
   activo: boolean;
 }

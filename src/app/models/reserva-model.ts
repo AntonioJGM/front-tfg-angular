@@ -2,7 +2,7 @@ import { LibroModel } from './libro-model';
 import { UsuarioModel } from './usuario-model';
 
 export interface ReservaModel {
-  id: number;
+  idReserva: number;
   libro: LibroModel;
   usuario: UsuarioModel;
   fechaReserva: string;

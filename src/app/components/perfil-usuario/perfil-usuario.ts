@@ -3,24 +3,27 @@ import { PrestamoResponseDto } from '../../models/prestamo-responsedto';
 import { ReservaResponseDto } from '../../models/reserva-responsedto';
 import { PrestamoService } from '../../services/prestamo-service';
 import { ReservaService } from '../../services/reserva-service';
+import { AuthService } from '../../services/auth-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-usuario',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './perfil-usuario.html',
   styleUrl: './perfil-usuario.css',
 })
 export class PerfilUsuarioComponent {
-
+  rol: string | null=null;
   prestamos: PrestamoResponseDto[] = [];
   loading = true;
   reservas: ReservaResponseDto[] = []; 
   loadingReservas = false;
   mensaje?: string;
 
-  constructor(private prestamoService: PrestamoService, private reservaService:ReservaService ) {}
+  constructor(private prestamoService: PrestamoService, private reservaService:ReservaService, private authService:AuthService) {}
 
   ngOnInit() {
+    this.rol = this.authService.getRole();
     this.cargarPrestamos();
     this.cargarReservas();
   }

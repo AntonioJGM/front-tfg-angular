@@ -5,6 +5,7 @@ import { RegistroComponent } from './components/registro-component/registro-comp
 import { provideHttpClient } from '@angular/common/http';
 import { LoginComponent } from './components/login-component/login-component';
 import { authGuard } from './guards/auth-guard';
+import { roleGuard } from './guards/role-guard';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario';
 
 export const appConfig = {
@@ -16,15 +17,10 @@ export const appConfig = {
 export const routes: Routes = [
 
   { path: '', component: HomeComponent, canActivate: [authGuard] },
-  { path: 'book/:id', component: BookDetailComponent, canActivate: [authGuard] },
+  { path: 'book/:id', component: BookDetailComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistroComponent },
-  { path: 'mis-prestamos', component: PerfilUsuarioComponent, canActivate: [authGuard]} 
+  { path: 'mis-prestamos', component: PerfilUsuarioComponent, canActivate: [authGuard]},
+  { path: 'admin', canActivate: [roleGuard], data: { role: 'ADMIN' },loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES)}
 
-  /*{
-    path: 'admin',
-    component: AdminComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'ADMIN' }
-  }*/
 ];
